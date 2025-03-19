@@ -131,28 +131,52 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Download cover letter
   detailDownloadCoverLetter.addEventListener('click', () => {
-    const coverLetterContent = detailCoverLetter.innerHTML;
-    if (!coverLetterContent || coverLetterContent.trim() === '') {
-      showNotification('No cover letter to download', 'warning');
-      return;
-    }
-    
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    
-    // Add HTML content to PDF
-    doc.html(coverLetterContent, {
-      callback: function(doc) {
-        // Save the PDF
-        doc.save(`Cover_Letter_${detailCompany.textContent.replace(/\s+/g, '_')}.pdf`);
-      },
-      x: 15,
-      y: 15,
-      width: 170,
-      windowWidth: 650
-    });
-  });
+  const coverLetterContent = detailCoverLetter.innerHTML;
+  if (!coverLetterContent || coverLetterContent.trim() === '') {
+    showNotification('No cover letter to download', 'warning');
+    return;
+  }
   
+  try {
+    // Show loading indicator
+    showNotification('Generating PDF...', 'info');
+    
+    // Import jsPDF with the html plugin
+    import('jspdf').then(module => {
+      const jsPDF = module.default;
+      
+      // Check if html2canvas is available
+      if (typeof html2canvas === 'undefined') {
+        throw new Error('html2canvas is required for HTML rendering');
+      }
+      
+      const doc = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+      });
+      
+      // Use html2canvas directly instead of doc.html
+      html2canvas(detailCoverLetter).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const imgWidth = 210; // A4 width in mm
+        const pageHeight = 295; // A4 height in mm
+        const imgHeight = canvas.height * imgWidth / canvas.width;
+        
+        doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+        doc.save(`Cover_Letter_${detailCompany.textContent.replace(/\s+/g, '_')}.pdf`);
+        showNotification('PDF downloaded successfully', 'success');
+      });
+    }).catch(err => {
+      console.error('PDF generation error:', err);
+      showNotification('Failed to generate PDF: ' + err.message, 'error');
+    });
+  } catch (error) {
+    console.error('PDF generation error:', error);
+    showNotification('Failed to generate PDF', 'error');
+  }
+});
+
   // Copy resume summary
   detailCopyResumeSummary.addEventListener('click', () => {
     const resumeSummary = detailResumeSummaryText.textContent;

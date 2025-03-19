@@ -165,43 +165,188 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Function to generate cover letter
-  function generateCoverLetter(jobDescription, companyWebsite, jobTitle, companyName, resumeData, templateType, keywords) {
-    // Get current date
-    const date = new Date().toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-    
-    // Extract name from resume data (assuming first line is the name)
-    const name = resumeData.split('\n')[0] || 'Your Name';
-    
-    // Extract contact info (assuming it's in the first few lines)
-    const contactLines = resumeData.split('\n').slice(1, 5);
-    const contactInfo = contactLines.join('<br>');
-    
-    // Use the template from templates.js
-    return window.coverLetterTemplates[templateType](name, contactInfo, date, jobTitle, companyName, companyWebsite, keywords);
-  }
+  // uses this data for last lines of text
+function generateCoverLetter(jobDescription, companyWebsite, jobTitle, companyName, resumeData, templateType, keywords) {
+  // Get current date
+  const date = new Date().toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+  
+  // Extract name and contact info from resume data
+  const resumeLines = resumeData.split('\n');
+  const name = resumeLines[0] || 'Your Name';
+  
+  // Extract specific contact details
+  const userEmail = resumeLines.find(line => line.includes('@')) || 'your.email@example.com';
+  const userPhone = resumeLines.find(line => line.match(/\d{3}[-\.\s]?\d{3}[-\.\s]?\d{4}/)) || '(407)256-8802';
+  const userAddress = resumeLines.find(line => line.includes('Street') || line.includes('Ave') || line.includes('Road') || line.includes(',')) || 'Denver, Colorado';
+  const userLinkedIn = resumeLines.find(line => line.toLowerCase().includes('linkedin')) || 'linkedin/in/alex-tarpley/';
+  
+  // Get the content from the template - templates now return just the body paragraphs
+  const bodyContent = window.coverLetterTemplates[templateType](name, '', date, jobTitle, companyName, companyWebsite, keywords);
+  
+  // Format the complete cover letter with proper structure (MSS style)
+  const formattedCoverLetter = `
+    <div class="cover-letter">
+      <!-- Header with contact information -->
+      <div class="header" style="margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+        <div style="text-align: left;">
+          <h1 style="font-size: 18px; font-weight: bold; margin-bottom: 0; text-transform: uppercase;">${name}</h1>
+        </div>
+        <div style="text-align: right;">
+          <p style="margin: 0; font-size: 12px;">${userAddress} | ${userEmail} | ${userPhone} | ${userLinkedIn}</p>
+        </div>
+      </div>
+      
+      <!-- Horizontal line -->
+      <hr style="border: 0.5px solid #000; margin: 5px 0 20px 0;">
+      
+      <!-- Company Address -->
+      <div class="recipient" style="margin-bottom: 5px;">
+        <p style="margin: 2px 0;">${companyName}</p>
+        <p style="margin: 2px 0;">Boulder, CO</p>
+      </div>
+      
+      <!-- Date -->
+      <div class="date" style="margin-bottom: 20px;">
+        <p style="margin: 2px 0;">${date}</p>
+      </div>
+      
+      <!-- Salutation -->
+      <div class="salutation" style="margin-bottom: 20px;">
+        <p>Dear ${companyName} Hiring Team,</p>
+      </div>
+      
+      <!-- Body paragraphs -->
+      <div class="body" style="margin-bottom: 20px; text-align: justify;">
+        ${bodyContent}
+      </div>
+      
+      <!-- Closing -->
+      <div class="closing" style="margin-top: 20px;">
+        <p>Sincerely,</p>
+        <div class="signature" style="margin-top: 30px;">
+          <p>${name}</p>
+          <p>${userPhone}</p>
+          <p>${userEmail}</p>
+        </div>
+      </div>
+    </div>
+  `;
+  
+  return formattedCoverLetter;
+}
 
-  // Function to generate PDF
-  function generatePDF(htmlContent, filename) {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    
-    // Add HTML content to PDF
-    doc.html(htmlContent, {
-      callback: function(doc) {
-        // Save the PDF
-        doc.save(`${filename}.pdf`);
-      },
-      x: 15,
-      y: 15,
-      width: 170,
-      windowWidth: 650
-    });
+// Function to generate PDF 
+// uses this data for header lines
+function generatePDF(htmlContent, filename) {
+  // Extract name and contact info from resume data
+  const resumeData = document.getElementById('resume-data').value.trim();
+  const resumeLines = resumeData.split('\n');
+  const userName = resumeLines[0] || 'Your Name';
+  const userEmail = resumeLines.find(line => line.includes('@')) || 'your.email@example.com';
+  const userPhone = resumeLines.find(line => line.match(/\d{3}[-\.\s]?\d{3}[-\.\s]?\d{4}/)) || '(407)256-8802';
+  const userAddress = resumeLines.find(line => line.includes('Street') || line.includes('Ave') || line.includes('Road') || line.includes(',')) || 'Denver, Colorado';
+  const userLinkedIn = resumeLines.find(line => line.toLowerCase().includes('linkedin')) || 'LinkedIn';
+  
+  // Get company name and job title
+  const companyName = document.getElementById('company-name').value;
+  const jobTitle = document.getElementById('job-title').value;
+  
+  // Format the date
+  const today = new Date();
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const formattedDate = today.toLocaleDateString('en-US', options);
+  
+  // Create PDF with jsPDF
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  
+  // Document settings
+  const pageWidth = doc.internal.pageSize.width;
+  const margin = 20;
+  const lineHeight = 7;
+  
+  // --- HEADER SECTION (MSS Format) ---
+  
+  // Add name header in bold
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(16);
+  doc.text(userName.toUpperCase(), margin, 20);
+  
+  // Add contact info right-aligned
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  const contactInfo = `${userAddress} | ${userEmail} | ${userPhone} | ${userLinkedIn}`;
+  const contactWidth = doc.getStringUnitWidth(contactInfo) * doc.internal.getFontSize() / doc.internal.scaleFactor;
+  doc.text(contactInfo, pageWidth - margin - contactWidth, 20);
+  
+  // Add horizontal divider line
+  doc.setDrawColor(0, 0, 0);
+  doc.setLineWidth(0.5);
+  doc.line(margin, 25, pageWidth - margin, 25);
+  
+  // Reset font for content
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(12);
+  
+  // Company address
+  doc.text(`${companyName}`, margin, 35);
+  doc.text('Boulder, CO', margin, 42);
+  
+  // Date
+  doc.text(formattedDate, margin, 52);
+  
+  // Salutation
+  doc.text(`Dear ${companyName} Hiring Team,`, margin, 65);
+  
+  // Get the cover letter content as text
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = htmlContent;
+  
+  // Extract paragraphs from the body section
+  const bodyParagraphs = [];
+  const paragraphs = tempDiv.querySelectorAll('.body p');
+  paragraphs.forEach(p => {
+    bodyParagraphs.push(p.textContent.trim());
+  });
+  
+  // If no paragraphs found in the structured way, try to extract all paragraphs
+  if (bodyParagraphs.length === 0) {
+    const allParagraphs = tempDiv.querySelectorAll('p');
+    // Skip the first few paragraphs (likely header) and last paragraph (likely signature)
+    for (let i = 4; i < allParagraphs.length - 2; i++) {
+      bodyParagraphs.push(allParagraphs[i].textContent.trim());
+    }
   }
-
+  
+  // If still no paragraphs, use the entire text content
+  if (bodyParagraphs.length === 0) {
+    bodyParagraphs.push(tempDiv.textContent.trim());
+  }
+  
+  // Add paragraphs to PDF
+  let yPosition = 75;
+  bodyParagraphs.forEach(paragraph => {
+    if (paragraph.trim() === '') return;
+    
+    // Add indentation to paragraphs
+    const lines = doc.splitTextToSize(paragraph, 170);
+    doc.text(lines, margin, yPosition);
+    yPosition += lines.length * 7 + 5;
+  });
+  
+  // Closing
+  doc.text('Sincerely,', margin, yPosition + 10);
+  doc.text(userName, margin, yPosition + 30);
+  doc.text(userPhone, margin, yPosition + 37);
+  doc.text(userEmail, margin, yPosition + 44);
+  
+  // Save the PDF
+  doc.save(`${filename}.pdf`);
+}
   // Function to show notification
   function showNotification(message, type) {
     // Create notification element if it doesn't exist

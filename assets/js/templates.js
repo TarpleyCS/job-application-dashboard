@@ -3,40 +3,15 @@ const coverLetterTemplates = {
   // General template for most job types
   general: function(name, contactInfo, date, jobTitle, companyName, companyWebsite, keywords) {
     return `
-      <div class="cover-letter">
-        <div class="header">
-          <div class="sender-info">
-            <p class="name">${name}</p>
-            <div class="contact">${contactInfo}</div>
-          </div>
-          <div class="date">${date}</div>
-        </div>
-        
-        <div class="recipient">
-          <p>${companyName} Hiring Team</p>
-          <p>${companyName}</p>
-        </div>
-        
-        <div class="greeting">
-          <p>Dear ${companyName} Hiring Team,</p>
-        </div>
-        
-        <div class="body">
-          <p>I am writing to express my interest in the ${jobTitle} position at ${companyName}. As a professional with experience in ${keywords.slice(0, 3).join(', ')}, I am excited about the opportunity to contribute to your team.</p>
-          
-          <p>My professional experience has equipped me with relevant skills that transfer well to this role. I've designed and implemented solutions that optimize complex systems, created data pipelines, and built tools that accelerate decision-making processes. My work demonstrates my ability to create solutions that address specific operational challenges—a skill I believe would be valuable in this position.</p>
-          
-          <p>I have extensive experience with many of the technical requirements listed in your job description. I've worked with ${keywords.slice(3, 6).join(', ')}, and developed applications to automate processes. Additionally, my experience has given me practical knowledge in deploying solutions that meet specific operational needs.</p>
-          
-          <p>What particularly excites me about this position is the opportunity to work at ${companyName}, contributing to innovative approaches that make a meaningful difference. I'm drawn to your company's vision and the chance to be part of your continued success.</p>
-        </div>
-        
-        <div class="closing">
-          <p>Thank you for considering my application. I look forward to the opportunity to discuss how my background could contribute to ${companyName}'s continued success.</p>
-          <p>Sincerely,</p>
-          <p class="signature">${name}</p>
-        </div>
-      </div>
+      <p>I am writing to express my interest in the ${jobTitle} position at ${companyName}. As a professional with experience in ${keywords.slice(0, 3).join(', ')}, I am excited about the opportunity to contribute to your team.</p>
+      
+      <p>My professional experience has equipped me with relevant skills that transfer well to this role. I've designed and implemented solutions that optimize complex systems, created data pipelines, and built tools that accelerate decision-making processes. My work demonstrates my ability to create solutions that address specific operational challenges—a skill I believe would be valuable in this position.</p>
+      
+      <p>I have extensive experience with many of the technical requirements listed in your job description. I've worked with ${keywords.slice(3, 6).join(', ')}, and developed applications to automate processes. Additionally, my experience has given me practical knowledge in deploying solutions that meet specific operational needs.</p>
+      
+      <p>What particularly excites me about this position is the opportunity to work at ${companyName}, contributing to innovative approaches that make a meaningful difference. I'm drawn to your company's vision and the chance to be part of your continued success.</p>
+      
+      <p>Thank you for considering my application. I look forward to the opportunity to discuss how my background could contribute to ${companyName}'s continued success.</p>
     `;
   },
   
@@ -51,40 +26,15 @@ const coverLetterTemplates = {
     const keywordsList = techKeywords.length > 0 ? techKeywords.join(', ') : 'software development, system architecture design, and process optimization';
     
     return `
-      <div class="cover-letter">
-        <div class="header">
-          <div class="sender-info">
-            <p class="name">${name}</p>
-            <div class="contact">${contactInfo}</div>
-          </div>
-          <div class="date">${date}</div>
-        </div>
-        
-        <div class="recipient">
-          <p>${companyName} Technical Hiring Team</p>
-          <p>${companyName}</p>
-        </div>
-        
-        <div class="greeting">
-          <p>Dear ${companyName} Technical Hiring Team,</p>
-        </div>
-        
-        <div class="body">
-          <p>I am writing to express my interest in the ${jobTitle} position at ${companyName}. As a software engineer with experience in system architecture design and implementation, I am excited about the opportunity to contribute to your technical initiatives.</p>
-          
-          <p>My professional experience has equipped me with relevant skills in ${keywordsList}. I've designed and implemented software solutions that optimize complex operational systems, created data pipelines, and built visualization tools that accelerate decision-making processes. My work developing specialized applications demonstrates my ability to create software that addresses specific operational challenges—a skill I believe would be valuable at ${companyName}.</p>
-          
-          <p>I have extensive experience with many of the technical requirements listed in your job description. I've worked with relational databases, implemented version control using Git, and developed scripts to automate processes. Additionally, my experience creating visualization dashboards has given me practical knowledge in deploying software solutions that meet specific operational needs.</p>
-          
-          <p>What particularly excites me about this position is the opportunity to work at the intersection of software and business operations, providing crucial technical solutions that drive efficiency and innovation. I'm drawn to ${companyName}'s approach and the chance to contribute to systems that make a meaningful difference.</p>
-        </div>
-        
-        <div class="closing">
-          <p>Thank you for considering my application. I look forward to the opportunity to discuss how my technical background could contribute to ${companyName}'s continued success.</p>
-          <p>Sincerely,</p>
-          <p class="signature">${name}</p>
-        </div>
-      </div>
+      <p>I am writing to express my interest in the ${jobTitle} position at ${companyName}. As a software engineer with experience in system architecture design and implementation, I am excited about the opportunity to contribute to your technical initiatives.</p>
+      
+      <p>My professional experience has equipped me with relevant skills in ${keywordsList}. I've designed and implemented software solutions that optimize complex operational systems, created data pipelines, and built visualization tools that accelerate decision-making processes. My work developing specialized applications demonstrates my ability to create software that addresses specific operational challenges—a skill I believe would be valuable at ${companyName}.</p>
+      
+      <p>I have extensive experience with many of the technical requirements listed in your job description. I've worked with relational databases, implemented version control using Git, and developed scripts to automate processes. Additionally, my experience creating visualization dashboards has given me practical knowledge in deploying software solutions that meet specific operational needs.</p>
+      
+      <p>What particularly excites me about this position is the opportunity to work at the intersection of software and business operations, providing crucial technical solutions that drive efficiency and innovation. I'm drawn to ${companyName}'s approach and the chance to contribute to systems that make a meaningful difference.</p>
+      
+      <p>Thank you for considering my application. I look forward to the opportunity to discuss how my technical background could contribute to ${companyName}'s continued success.</p>
     `;
   },
   
@@ -98,40 +48,15 @@ const coverLetterTemplates = {
     const keywordsList = creativeKeywords.length > 0 ? creativeKeywords.join(', ') : 'creative design, innovation, and communication';
     
     return `
-      <div class="cover-letter">
-        <div class="header">
-          <div class="sender-info">
-            <p class="name">${name}</p>
-            <div class="contact">${contactInfo}</div>
-          </div>
-          <div class="date">${date}</div>
-        </div>
-        
-        <div class="recipient">
-          <p>${companyName} Creative Team</p>
-          <p>${companyName}</p>
-        </div>
-        
-        <div class="greeting">
-          <p>Hello ${companyName} Creative Team,</p>
-        </div>
-        
-        <div class="body">
-          <p>When I discovered the ${jobTitle} opportunity at ${companyName}, I was immediately inspired. Your company's innovative approach to design and creative solutions resonates deeply with my own creative philosophy.</p>
-          
-          <p>My journey in the creative field has equipped me with skills in ${keywordsList}. I thrive in collaborative environments where creativity and strategic thinking intersect to produce compelling and effective results. My experience has taught me how to translate complex ideas into clear, engaging communications that resonate with diverse audiences.</p>
-          
-          <p>What excites me most about ${companyName} is your commitment to pushing creative boundaries while delivering meaningful experiences to your audience. I am eager to contribute my unique perspective and creative problem-solving abilities to your team, helping to further strengthen your brand's presence and impact.</p>
-          
-          <p>I believe that great creative work comes from a combination of bold ideas, technical skill, and a deep understanding of the audience. This approach has guided my work throughout my career, and I'm excited about the possibility of bringing this mindset to ${companyName}.</p>
-        </div>
-        
-        <div class="closing">
-          <p>I would love the opportunity to discuss how my creative vision aligns with your company's goals. Thank you for considering my application.</p>
-          <p>Creatively yours,</p>
-          <p class="signature">${name}</p>
-        </div>
-      </div>
+      <p>When I discovered the ${jobTitle} opportunity at ${companyName}, I was immediately inspired. Your company's innovative approach to design and creative solutions resonates deeply with my own creative philosophy.</p>
+      
+      <p>My journey in the creative field has equipped me with skills in ${keywordsList}. I thrive in collaborative environments where creativity and strategic thinking intersect to produce compelling and effective results. My experience has taught me how to translate complex ideas into clear, engaging communications that resonate with diverse audiences.</p>
+      
+      <p>What excites me most about ${companyName} is your commitment to pushing creative boundaries while delivering meaningful experiences to your audience. I am eager to contribute my unique perspective and creative problem-solving abilities to your team, helping to further strengthen your brand's presence and impact.</p>
+      
+      <p>I believe that great creative work comes from a combination of bold ideas, technical skill, and a deep understanding of the audience. This approach has guided my work throughout my career, and I'm excited about the possibility of bringing this mindset to ${companyName}.</p>
+      
+      <p>I would love the opportunity to discuss how my creative vision aligns with your company's goals. Thank you for considering my application.</p>
     `;
   },
   
@@ -145,40 +70,15 @@ const coverLetterTemplates = {
     const keywordsList = managementKeywords.length > 0 ? managementKeywords.join(', ') : 'leadership, strategic planning, and team management';
     
     return `
-      <div class="cover-letter">
-        <div class="header">
-          <div class="sender-info">
-            <p class="name">${name}</p>
-            <div class="contact">${contactInfo}</div>
-          </div>
-          <div class="date">${date}</div>
-        </div>
-        
-        <div class="recipient">
-          <p>${companyName} Leadership Team</p>
-          <p>${companyName}</p>
-        </div>
-        
-        <div class="greeting">
-          <p>Dear ${companyName} Leadership Team,</p>
-        </div>
-        
-        <div class="body">
-          <p>I am writing to express my interest in the ${jobTitle} position at ${companyName}. With my proven track record in leadership and management, I am confident in my ability to make significant contributions to your organization.</p>
-          
-          <p>Throughout my career, I have developed strong capabilities in ${keywordsList}. I have successfully led teams through complex projects, implemented strategic initiatives, and consistently delivered results that exceed expectations. My approach to leadership focuses on clear communication, strategic thinking, and empowering team members to reach their full potential.</p>
-          
-          <p>What particularly attracts me to ${companyName} is your reputation for excellence and innovation in the industry. I am impressed by your company's vision and would welcome the opportunity to help drive your continued success through effective leadership and operational excellence.</p>
-          
-          <p>I believe my management philosophy aligns well with ${companyName}'s values and would enable me to effectively lead within your organization. My experience has taught me the importance of balancing strategic vision with practical execution, a skill that I would bring to this role.</p>
-        </div>
-        
-        <div class="closing">
-          <p>I look forward to the possibility of discussing how my leadership experience and management approach could benefit ${companyName}. Thank you for considering my application.</p>
-          <p>Respectfully,</p>
-          <p class="signature">${name}</p>
-        </div>
-      </div>
+      <p>I am writing to express my interest in the ${jobTitle} position at ${companyName}. With my proven track record in leadership and management, I am confident in my ability to make significant contributions to your organization.</p>
+      
+      <p>Throughout my career, I have developed strong capabilities in ${keywordsList}. I have successfully led teams through complex projects, implemented strategic initiatives, and consistently delivered results that exceed expectations. My approach to leadership focuses on clear communication, strategic thinking, and empowering team members to reach their full potential.</p>
+      
+      <p>What particularly attracts me to ${companyName} is your reputation for excellence and innovation in the industry. I am impressed by your company's vision and would welcome the opportunity to help drive your continued success through effective leadership and operational excellence.</p>
+      
+      <p>I believe my management philosophy aligns well with ${companyName}'s values and would enable me to effectively lead within your organization. My experience has taught me the importance of balancing strategic vision with practical execution, a skill that I would bring to this role.</p>
+      
+      <p>I look forward to the possibility of discussing how my leadership experience and management approach could benefit ${companyName}. Thank you for considering my application.</p>
     `;
   }
 };
