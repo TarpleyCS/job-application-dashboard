@@ -1,0 +1,85 @@
+---
+layout: default
+title: Home
+---
+
+<div class="dashboard-container">
+  <h1>Job Application Dashboard</h1>
+  
+  <div class="dashboard-form">
+    <h2>Create New Application</h2>
+    
+    <div class="form-group">
+      <label for="job-description">Job Description:</label>
+      <textarea id="job-description" rows="10" placeholder="Paste the job description here..."></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="company-website">Company Website:</label>
+      <input type="url" id="company-website" placeholder="https://company.com">
+    </div>
+    
+    <div class="form-group">
+      <label for="job-title">Job Title:</label>
+      <input type="text" id="job-title" placeholder="Software Engineer">
+    </div>
+    
+    <div class="form-group">
+      <label for="company-name">Company Name:</label>
+      <input type="text" id="company-name" placeholder="Acme Inc.">
+    </div>
+    
+    <div class="form-group">
+      <label for="resume-data">Resume Data:</label>
+      <textarea id="resume-data" rows="10" placeholder="Paste your resume data here or use the saved resume..."></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="cover-letter-template">Cover Letter Template:</label>
+      <select id="cover-letter-template">
+        <option value="general">General</option>
+        <option value="technical">Technical</option>
+        <option value="creative">Creative</option>
+        <option value="management">Management</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="application-label">Application Label:</label>
+      <input type="text" id="application-label" placeholder="Frontend Developer - Acme Inc.">
+    </div>
+    
+    <div class="button-group">
+      <button id="generate-button" class="primary-button">Generate Documents</button>
+      <button id="save-resume-button" class="secondary-button">Save Resume Data</button>
+      <button id="load-resume-button" class="secondary-button">Load Saved Resume</button>
+    </div>
+  </div>
+  
+  <div class="dashboard-preview">
+    <div class="preview-tabs">
+      <button class="tab-button active" data-tab="cover-letter">Cover Letter</button>
+      <button class="tab-button" data-tab="resume-summary">Resume Summary</button>
+    </div>
+    
+    <div class="preview-content">
+      <div id="cover-letter-preview" class="tab-content active">
+        <h3>Cover Letter Preview</h3>
+        <div id="cover-letter-content" class="preview-document"></div>
+        <button id="download-cover-letter" class="download-button">Download PDF</button>
+      </div>
+      
+      <div id="resume-summary-preview" class="tab-content">
+        <h3>Resume Summary Preview</h3>
+        <div id="resume-summary-content" class="preview-document"></div>
+        <button id="copy-resume-summary" class="download-button">Copy to Clipboard</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="dashboard-save">
+    <h2>Save Application</h2>
+    <p>Save your application data for future reference.</p>
+    <button id="save-application-button" class="primary-button">Save Application</button>
+  </div>
+</div>

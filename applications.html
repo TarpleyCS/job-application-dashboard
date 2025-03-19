@@ -1,0 +1,426 @@
+---
+layout: default
+title: Saved Applications
+---
+
+<div class="applications-container">
+  <h1>Saved Applications</h1>
+  
+  <div class="applications-list">
+    <div class="applications-header">
+      <h2>Your Job Applications</h2>
+      <p>View and manage your saved job applications.</p>
+    </div>
+    
+    <div id="applications-table-container">
+      <table id="applications-table" class="applications-table">
+        <thead>
+          <tr>
+            <th>Label</th>
+            <th>Company</th>
+            <th>Job Title</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="applications-table-body">
+          <!-- Applications will be loaded here dynamically -->
+          <tr class="empty-state">
+            <td colspan="5">No saved applications yet.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <div id="application-details" class="application-details hidden">
+    <div class="details-header">
+      <h2 id="detail-label">Application Details</h2>
+      <button id="back-to-list" class="secondary-button">Back to List</button>
+    </div>
+    
+    <div class="details-content">
+      <div class="details-section">
+        <h3>Job Information</h3>
+        <div class="detail-item">
+          <span class="detail-label">Company:</span>
+          <span id="detail-company" class="detail-value"></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Job Title:</span>
+          <span id="detail-job-title" class="detail-value"></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Date Applied:</span>
+          <span id="detail-date" class="detail-value"></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Company Website:</span>
+          <a id="detail-website" class="detail-value" target="_blank"></a>
+        </div>
+      </div>
+      
+      <div class="details-section">
+        <h3>Job Description</h3>
+        <div id="detail-job-description" class="detail-text-block"></div>
+      </div>
+      
+      <div class="details-tabs">
+        <button class="tab-button active" data-tab="cover-letter">Cover Letter</button>
+        <button class="tab-button" data-tab="resume-summary">Resume Summary</button>
+      </div>
+      
+      <div class="details-tab-content">
+        <div id="detail-cover-letter" class="tab-content active"></div>
+        <div id="detail-resume-summary" class="tab-content">
+          <p id="detail-resume-summary-text"></p>
+        </div>
+      </div>
+      
+      <div class="details-actions">
+        <button id="detail-download-cover-letter" class="primary-button">Download Cover Letter</button>
+        <button id="detail-copy-resume-summary" class="secondary-button">Copy Resume Summary</button>
+        <button id="detail-delete-application" class="danger-button">Delete Application</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // DOM Elements
+  const applicationsTableBody = document.getElementById('applications-table-body');
+  const applicationDetails = document.getElementById('application-details');
+  const backToListButton = document.getElementById('back-to-list');
+  const detailLabel = document.getElementById('detail-label');
+  const detailCompany = document.getElementById('detail-company');
+  const detailJobTitle = document.getElementById('detail-job-title');
+  const detailDate = document.getElementById('detail-date');
+  const detailWebsite = document.getElementById('detail-website');
+  const detailJobDescription = document.getElementById('detail-job-description');
+  const detailCoverLetter = document.getElementById('detail-cover-letter');
+  const detailResumeSummaryText = document.getElementById('detail-resume-summary-text');
+  const detailDownloadCoverLetter = document.getElementById('detail-download-cover-letter');
+  const detailCopyResumeSummary = document.getElementById('detail-copy-resume-summary');
+  const detailDeleteApplication = document.getElementById('detail-delete-application');
+  const detailTabButtons = document.querySelectorAll('.details-tabs .tab-button');
+  const detailTabContents = document.querySelectorAll('.details-tab-content .tab-content');
+  
+  // Load applications
+  loadApplications();
+  
+  // Tab switching functionality
+  detailTabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const tabName = button.getAttribute('data-tab');
+      
+      // Update active tab button
+      detailTabButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+      
+      // Update active tab content
+      detailTabContents.forEach(content => content.classList.remove('active'));
+      document.getElementById(`detail-${tabName}`).classList.add('active');
+    });
+  });
+  
+  // Back to list button
+  backToListButton.addEventListener('click', () => {
+    applicationDetails.classList.add('hidden');
+  });
+  
+  // Download cover letter
+  detailDownloadCoverLetter.addEventListener('click', () => {
+    const coverLetterContent = detailCoverLetter.innerHTML;
+    if (!coverLetterContent || coverLetterContent.trim() === '') {
+      showNotification('No cover letter to download', 'warning');
+      return;
+    }
+    
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    // Add HTML content to PDF
+    doc.html(coverLetterContent, {
+      callback: function(doc) {
+        // Save the PDF
+        doc.save(`Cover_Letter_${detailCompany.textContent.replace(/\s+/g, '_')}.pdf`);
+      },
+      x: 15,
+      y: 15,
+      width: 170,
+      windowWidth: 650
+    });
+  });
+  
+  // Copy resume summary
+  detailCopyResumeSummary.addEventListener('click', () => {
+    const resumeSummary = detailResumeSummaryText.textContent;
+    if (!resumeSummary || resumeSummary.trim() === '') {
+      showNotification('No resume summary to copy', 'warning');
+      return;
+    }
+    
+    navigator.clipboard.writeText(resumeSummary)
+      .then(() => {
+        showNotification('Resume summary copied to clipboard', 'success');
+      })
+      .catch(() => {
+        showNotification('Failed to copy resume summary', 'error');
+      });
+  });
+  
+  // Delete application
+  detailDeleteApplication.addEventListener('click', async () => {
+    if (confirm('Are you sure you want to delete this application?')) {
+      const applicationId = detailDeleteApplication.getAttribute('data-id');
+      const success = await appDB.deleteApplication(parseInt(applicationId));
+      
+      if (success) {
+        showNotification('Application deleted successfully', 'success');
+        applicationDetails.classList.add('hidden');
+        loadApplications();
+      } else {
+        showNotification('Failed to delete application', 'error');
+      }
+    }
+  });
+  
+  // Load applications from database
+  async function loadApplications() {
+    const applications = await appDB.getAllApplications();
+    
+    if (applications.length === 0) {
+      applicationsTableBody.innerHTML = `
+        <tr class="empty-state">
+          <td colspan="5">No saved applications yet.</td>
+        </tr>
+      `;
+      return;
+    }
+    
+    // Sort applications by date (newest first)
+    applications.sort((a, b) => new Date(b.date) - new Date(a.date));
+    
+    // Generate table rows
+    applicationsTableBody.innerHTML = applications.map(app => {
+      const date = new Date(app.date).toLocaleDateString();
+      return `
+        <tr>
+          <td>${app.label}</td>
+          <td>${app.companyName}</td>
+          <td>${app.jobTitle}</td>
+          <td>${date}</td>
+          <td>
+            <button class="view-button" data-id="${app.id}">View</button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+    
+    // Add event listeners to view buttons
+    document.querySelectorAll('.view-button').forEach(button => {
+      button.addEventListener('click', async () => {
+        const applicationId = button.getAttribute('data-id');
+        const application = await appDB.getApplicationById(parseInt(applicationId));
+        
+        if (application) {
+          showApplicationDetails(application);
+        } else {
+          showNotification('Failed to load application details', 'error');
+        }
+      });
+    });
+  }
+  
+  // Show application details
+  function showApplicationDetails(application) {
+    // Set application details
+    detailLabel.textContent = application.label;
+    detailCompany.textContent = application.companyName;
+    detailJobTitle.textContent = application.jobTitle;
+    detailDate.textContent = new Date(application.date).toLocaleDateString();
+    
+    if (application.companyWebsite) {
+      detailWebsite.textContent = application.companyWebsite;
+      detailWebsite.href = application.companyWebsite;
+    } else {
+      detailWebsite.textContent = 'Not provided';
+      detailWebsite.removeAttribute('href');
+    }
+    
+    detailJobDescription.textContent = application.jobDescription;
+    detailCoverLetter.innerHTML = application.coverLetter;
+    detailResumeSummaryText.textContent = application.resumeSummary;
+    
+    // Set application ID for delete button
+    detailDeleteApplication.setAttribute('data-id', application.id);
+    
+    // Show details panel
+    applicationDetails.classList.remove('hidden');
+  }
+  
+  // Function to show notification
+  function showNotification(message, type) {
+    // Create notification element if it doesn't exist
+    let notification = document.querySelector('.notification');
+    if (!notification) {
+      notification = document.createElement('div');
+      notification.className = 'notification';
+      document.body.appendChild(notification);
+    }
+    
+    // Set notification content and type
+    notification.textContent = message;
+    notification.className = `notification ${type}`;
+    
+    // Show notification
+    setTimeout(() => {
+      notification.classList.add('show');
+    }, 10);
+    
+    // Hide notification after 3 seconds
+    setTimeout(() => {
+      notification.classList.remove('show');
+    }, 3000);
+  }
+});
+</script>
+
+<style>
+.applications-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.applications-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+.applications-list, .application-details {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+}
+
+.applications-header {
+  margin-bottom: 20px;
+}
+
+.applications-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.applications-table th, .applications-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.applications-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+.applications-table tr:last-child td {
+  border-bottom: none;
+}
+
+.applications-table .empty-state td {
+  text-align: center;
+  padding: 30px;
+  color: #6c757d;
+}
+
+.view-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.view-button:hover {
+  background-color: var(--secondary-color);
+}
+
+.application-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.application-details.hidden {
+  display: none;
+}
+
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.details-section {
+  margin-bottom: 25px;
+}
+
+.details-section h3 {
+  margin-bottom: 10px;
+  color: var(--primary-color);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 5px;
+}
+
+.detail-item {
+  margin-bottom: 10px;
+}
+
+.detail-label {
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.detail-text-block {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 4px;
+  white-space: pre-wrap;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.details-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 20px;
+}
+
+.details-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.danger-button {
+  background-color: var(--error-color);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.danger-button:hover {
+  background-color: #c82333;
+}
+</style>

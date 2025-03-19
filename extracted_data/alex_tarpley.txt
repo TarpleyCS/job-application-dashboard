@@ -1,0 +1,89 @@
+Alex Tarpley
+
+aotarpley@gmail.com Ó (407)256-8802
+ GitHub ¯ LinkedIn Denver, CO, 80202
+
+Software Engineer
+Dynamic professional with extensive experience designing, developing, and implementing scalable software
+solutions. Proficient in full-stack development, data visualization, and automation to digitize and optimize complex
+systems. Experience implementing embedded systems for real-time applications and hardware integration. Adept
+at creating robust applications and interactive systems that drive significant improvements in accuracy, speed,
+and decision-making, for cargo and aerospace industries.
+
+Technical Proficiencies
+• Languages: Python | Java | C | C++ | Swift | JavaScript | HTML/CSS | C# | Haskell | LaTex | Ruby on Rails
+• Frameworks & Services: Firebase | MySQL | Flask | Docker | React | Vue | Azure | PowerBI
+• Development Tools: Git | CLI | VirtualBox | Vim | LM Studio | Figma | Canva | Trello | Solidworks
+
+Areas of Expertise
+Software Development
+System Architecture Design
+Application/SaaS Integration
+Process Optimization
+
+Database Management
+Database design & operations
+Data collection & formatting
+Analytics & Visualizations
+
+Project Management
+Technical Leadership
+Problem Solving
+Business Intelligence
+
+Professional Experience
+Mammoth Freighters LLC, Orlando, FL
+2022 – Present
+Delivering the most productive and economical 777 long range freighter aircraft in the world.
+Software Engineer
+Designed and developed software serving to understand and help optimize or automate lengthy repetitive tasks
+of engineers and business executives by creating data pipelines or full stack applications. Organized and refined
+unstructured data for creating visualizations that accelerated business decisions. Exposing me to different people
+in the company allowed me to better understand the operations of the business alongside the opportunity to
+develop and manage a variety of projects:
+• Reduced cargo planning time and mathematical errors by developing a center-of-gravity calculator that optimizes
+pallet configurations across multiple layouts, enabling rapid comparison of loading scenarios.
+• Accelerated aircraft acquisition analysis by creating a targeted web scraper that tracks global 777 availability
+and ownership, providing executives with real-time market intelligence for fleet expansion decisions.
+• Streamlined production monitoring through a PowerBI dashboard that visualizes daily BOM changes, enabling
+project managers to identify bottlenecks in real-time and optimize resource allocation.
+
+Florida Department of Employment, K-Force, Remote
+April 2020 – August 2020
+Customer Service Agent
+Managed high-volume inquiries from Florida residents regarding unemployment benefits and CARES Act assistance
+during peak pandemic period, handling 100+ daily calls while maintaining detailed documentation of claims in
+the CONNECT system. Provided compassionate support and accurate guidance on unemployment programs to
+distressed applicants.
+University of Denver, Denver, CO
+January 2020 – October 2020
+Tour Guide
+Lead prospective students and their families on online tours of the campus, highlighting key facts and features
+to engage visitors through a blend of official university messaging and authentic personal storytelling.
+
+Education
+Bachelor of Science (B.S.) in Computer Science | Minors in Mathematics and Physics
+University of Denver, Denver, CO, 2023
+GPA: 3.5 (Major GPA: 3.8)
+Relevant Coursework:
+Machine Learning (NLP), Software Engineering, Embedded Systems, SQL Database Organization and Management,
+Systems Programming, Operating Systems, Algorithms and Data Structures, UX/UI Design, Tech Startups,
+3D Graphics and Design
+Leadership: VP of Member Education, Beta Theta Pi (2020–2021)
+
+Key Projects
+• Drag Racing Registration Application: Partnered with an entrepreneur to design and develop a full-stack iOS
+app and website using Swift, SQL, and HTML. Created a solution to streamline event registration, reducing
+stress and wait times at NHRA events, enhancing user experience and operational efficiency.
+• Innovation Lab Management System: Developed a system to track and analyze usage data of 3D printers in an
+innovation lab. Improved lab efficiency and contributed to increased grant acquisition by providing detailed
+insights into resource utilization.
+• Interactive Model Solar System: Applied linear algebra and JavaScript to build a visually interactive solar system
+model, enhancing educational engagement by creating a tool for visualizing and modifying solar system dynamics.
+• Remotely Piloted Ground Robot: Integrated and connected embedded modules to a multifunctional iRobot
+ATRV using Raspberry Pis. Advanced robotic capabilities, enabling remote control and improved mobility for
+ground-based tasks.
+• MyChores Application: Designed and developed an full stack interface that takes in a household layout and
+generates a personalized chore schedule depending on your household items.
+
+

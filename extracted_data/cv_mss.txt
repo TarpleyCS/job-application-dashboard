@@ -1,0 +1,38 @@
+ALEX TARPLEY​
+
+​
+
+​
+
+​
+
+Denver, Colorado | aotarpley@gmail.com | +1(407)256-8802| LinkedIn
+
+Millennium Space Systems Hiring Team
+Boulder, CO
+March 18, 2025
+
+Dear Millennium Space Systems Hiring Team,
+I am writing to express my interest in the Ground Software Integration and Management Engineer position at your Boulder, CO
+location. As a software engineer with experience in system architecture design and implementation, I am excited about the
+opportunity to support Millennium's ground software and mission control infrastructures.
+My professional experience at Mammoth Freighters has equipped me with relevant skills that transfer well to satellite ground
+systems. I've designed and implemented software solutions that optimize complex operational systems, created data pipelines,
+and built visualization tools that accelerate decision-making processes. My work developing a center-of-gravity calculator
+demonstrates my ability to create software that addresses specific operational challenges—a skill I believe would be valuable
+when implementing mission data processing applications for your spacecraft systems.
+I have extensive experience with many of the technical requirements listed in your job description. I've worked with relational
+databases, implemented version control using Git, and developed scripts in Python to automate processes. Additionally, my
+experience creating visualization dashboards has given me practical knowledge in deploying software solutions that meet
+specific operational needs.
+What particularly excites me about this position is the opportunity to work at the intersection of software and space systems,
+providing that crucial interface between ground segments, mission operators, and the space vehicle itself. I'm drawn to
+Millennium's innovative approach and the chance to contribute to space systems that make a meaningful difference.
+Thank you for considering my application. I look forward to the opportunity to discuss how my background could contribute to
+Millennium Space Systems' continued success.
+Sincerely,
+Alex Tarpley
+(407) 256-8802
+aotarpley@gmail.com
+
+

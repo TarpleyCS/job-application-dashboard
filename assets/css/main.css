@@ -1,0 +1,263 @@
+/* Main Styles */
+:root {
+  --primary-color: #4a6fa5;
+  --secondary-color: #6b8cae;
+  --accent-color: #ff6b6b;
+  --background-color: #f8f9fa;
+  --text-color: #333;
+  --border-color: #ddd;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --error-color: #dc3545;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header Styles */
+.site-header {
+  background-color: var(--primary-color);
+  padding: 15px 0;
+  color: white;
+}
+
+.site-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+.site-nav {
+  float: right;
+}
+
+.site-nav a {
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+}
+
+.site-nav a:hover {
+  text-decoration: underline;
+}
+
+/* Main Content Styles */
+.page-content {
+  padding: 40px 0;
+}
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.dashboard-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+.dashboard-form, .dashboard-preview, .dashboard-save {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+}
+
+.dashboard-form h2, .dashboard-preview h2, .dashboard-save h2 {
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.form-group input, .form-group textarea, .form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.primary-button, .secondary-button, .download-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.primary-button {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.secondary-button {
+  background-color: #e9ecef;
+  color: var(--text-color);
+}
+
+.download-button {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.primary-button:hover {
+  background-color: var(--secondary-color);
+}
+
+.secondary-button:hover {
+  background-color: #dee2e6;
+}
+
+.download-button:hover {
+  background-color: #218838;
+}
+
+/* Preview Styles */
+.preview-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.tab-button.active {
+  border-bottom: 3px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.preview-document {
+  min-height: 300px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+}
+
+/* Footer Styles */
+.site-footer {
+  background-color: #343a40;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}
+
+/* Responsive Styles */
+@media (min-width: 768px) {
+  .dashboard-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "header header"
+      "form preview"
+      "save save";
+    gap: 20px;
+  }
+  
+  .dashboard-container h1 {
+    grid-area: header;
+  }
+  
+  .dashboard-form {
+    grid-area: form;
+  }
+  
+  .dashboard-preview {
+    grid-area: preview;
+  }
+  
+  .dashboard-save {
+    grid-area: save;
+  }
+}
+
+/* Notification Styles */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px 20px;
+  border-radius: 4px;
+  color: white;
+  font-weight: 500;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.notification.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.notification.success {
+  background-color: var(--success-color);
+}
+
+.notification.error {
+  background-color: var(--error-color);
+}
+
+.notification.warning {
+  background-color: var(--warning-color);
+  color: #333;
+}

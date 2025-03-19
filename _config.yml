@@ -1,0 +1,30 @@
+title: Job Application Dashboard
+description: Generate customized cover letters and resume summaries based on job descriptions
+baseurl: ""
+url: ""
+
+# Build settings
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Collections
+collections:
+  templates:
+    output: true
+    permalink: /:collection/:name
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .sass-cache
+  - .jekyll-cache
+  - gemfiles
+  - README.md
+  - todo.md
+  - requirements.md
