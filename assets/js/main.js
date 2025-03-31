@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const saveApplicationButtonEl = document.getElementById('save-application-button');
   const tabButtons = document.querySelectorAll('.tab-button');
   const tabContents = document.querySelectorAll('.tab-content');
+  const scrapeButton = document.getElementById('');
 
   // Tab switching functionality
   tabButtons.forEach(button => {
@@ -79,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Generate documents
     generateDocuments(jobDescription, companyWebsite, jobTitle, companyName, resumeData, coverLetterTemplate);
   });
-
+  
   // Download cover letter as PDF
   downloadCoverLetterEl.addEventListener('click', () => {
     const coverLetterContent = coverLetterContentEl.innerHTML;
@@ -184,8 +185,15 @@ function generateCoverLetter(jobDescription, companyWebsite, jobTitle, companyNa
   const userAddress = resumeLines.find(line => line.includes('Street') || line.includes('Ave') || line.includes('Road') || line.includes(',')) || 'Denver, Colorado';
   const userLinkedIn = resumeLines.find(line => line.toLowerCase().includes('linkedin')) || 'linkedin/in/alex-tarpley/';
   
-  // Get the content from the template - templates now return just the body paragraphs
-  const bodyContent = window.coverLetterTemplates[templateType](name, '', date, jobTitle, companyName, companyWebsite, keywords);
+    // Get the content from the appropriate template
+    let bodyContent;
+    if (templateType !== "ai") {
+      bodyContent = window.coverLetterTemplates(name, '', date, jobTitle, companyName, companyWebsite, keywords);
+    } else {
+      bodyContent = window.aiTemplate(name, '', date, jobTitle, companyName, companyWebsite, keywords);
+    }
+  
+
   
   // Format the complete cover letter with proper structure (MSS style)
   const formattedCoverLetter = `
@@ -294,7 +302,7 @@ function generatePDF(htmlContent, filename) {
   
   // Company address
   doc.text(`${companyName}`, margin, 35);
-  doc.text('Boulder, CO', margin, 42);
+
   
   // Date
   doc.text(formattedDate, margin, 52);

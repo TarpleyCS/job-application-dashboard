@@ -35,3 +35,7 @@ gem 'github-pages', group: :jekyll_plugins
 gem "jekyll", "~> 3.9.0"
 
 gem "webrick", "~> 1.9"
+
+gem 'ruby-openai', '~> 8.0'
+
+gem 'dotenv', '~> 3.1', '>= 3.1.7'

@@ -1,3 +1,4 @@
+
 // Cover letter templates based on user examples
 const coverLetterTemplates = {
   // General template for most job types
@@ -5,13 +6,14 @@ const coverLetterTemplates = {
     return `
       <p>I am writing to express my interest in the ${jobTitle} position at ${companyName}. As a professional with experience in ${keywords.slice(0, 3).join(', ')}, I am excited about the opportunity to contribute to your team.</p>
       
-      <p>My professional experience has equipped me with relevant skills that transfer well to this role. I've designed and implemented solutions that optimize complex systems, created data pipelines, and built tools that accelerate decision-making processes. My work demonstrates my ability to create solutions that address specific operational challenges—a skill I believe would be valuable in this position.</p>
-      
+      <p>My professional experience has equipped me with relevant skills that transfer well to this role.I've designed and implemented solutions that optimize complex systems,  created data pipelines, and built tools that accelerate decision-making processes.   My work demonstrates my ability to create solutions that address specific operational   challenges—a skill I believe would be valuable in this position.</p>
+     
       <p>I have extensive experience with many of the technical requirements listed in your job description. I've worked with ${keywords.slice(3, 6).join(', ')}, and developed applications to automate processes. Additionally, my experience has given me practical knowledge in deploying solutions that meet specific operational needs.</p>
       
-      <p>What particularly excites me about this position is the opportunity to work at ${companyName}, contributing to innovative approaches that make a meaningful difference. I'm drawn to your company's vision and the chance to be part of your continued success.</p>
+      <p>What particularly excites me about this position is the opportunity to work at ${companyName},  contributing to innovative approaches that make a meaningful difference. I'm drawn to your company's vision and the chance to be part of your continued success.</p>
       
-      <p>Thank you for considering my application. I look forward to the opportunity to discuss how my background could contribute to ${companyName}'s continued success.</p>
+      <p>Thank you for considering my application. I look forward to the opportunity to discuss how my 
+      background could contribute to ${companyName}'s continued success.</p>
     `;
   },
   
@@ -26,11 +28,15 @@ const coverLetterTemplates = {
     const keywordsList = techKeywords.length > 0 ? techKeywords.join(', ') : 'software development, system architecture design, and process optimization';
     
     return `
-      <p>I am writing to express my interest in the ${jobTitle} position at ${companyName}. As a software engineer with experience in system architecture design and implementation, I am excited about the opportunity to contribute to your technical initiatives.</p>
+      <p>I am writing to express my interest in the ${jobTitle} position at ${companyName}.
+       As a software engineer with experience in system architecture design and implementation, I am excited about the opportunity to contribute to your technical initiatives.</p>
       
-      <p>My professional experience has equipped me with relevant skills in ${keywordsList}. I've designed and implemented software solutions that optimize complex operational systems, created data pipelines, and built visualization tools that accelerate decision-making processes. My work developing specialized applications demonstrates my ability to create software that addresses specific operational challenges—a skill I believe would be valuable at ${companyName}.</p>
+      <p>My professional experience has equipped me with relevant skills in ${keywordsList}.
+       I've designed and implemented software solutions that optimize complex operational systems, created data pipelines, and built visualization tools that accelerate decision-making processes. My work developing specialized applications demonstrates my ability to create software that addresses specific operational challenges—a skill I believe would be valuable at ${companyName}.</p>
       
-      <p>I have extensive experience with many of the technical requirements listed in your job description. I've worked with relational databases, implemented version control using Git, and developed scripts to automate processes. Additionally, my experience creating visualization dashboards has given me practical knowledge in deploying software solutions that meet specific operational needs.</p>
+      <p>I have extensive experience with many of the technical requirements listed in your 
+      job description. I've worked with relational databases, implemented version control using Git, 
+      and developed scripts to automate processes. Additionally, my experience creating visualization dashboards has given me practical knowledge in deploying software solutions that meet specific operational needs.</p>
       
       <p>What particularly excites me about this position is the opportunity to work at the intersection of software and business operations, providing crucial technical solutions that drive efficiency and innovation. I'm drawn to ${companyName}'s approach and the chance to contribute to systems that make a meaningful difference.</p>
       
@@ -52,7 +58,7 @@ const coverLetterTemplates = {
       
       <p>My journey in the creative field has equipped me with skills in ${keywordsList}. I thrive in collaborative environments where creativity and strategic thinking intersect to produce compelling and effective results. My experience has taught me how to translate complex ideas into clear, engaging communications that resonate with diverse audiences.</p>
       
-      <p>What excites me most about ${companyName} is your commitment to pushing creative boundaries while delivering meaningful experiences to your audience. I am eager to contribute my unique perspective and creative problem-solving abilities to your team, helping to further strengthen your brand's presence and impact.</p>
+      <p>What excites me most about ${companyName} is your commitment to pushing creative boundaries while delivering meaningful experiences to your audience. I am eager tO contribute my unique perspective and creative problem-solving abilities to your team, helping to further strengthen your brand's presence and impact.</p>
       
       <p>I believe that great creative work comes from a combination of bold ideas, technical skill, and a deep understanding of the audience. This approach has guided my work throughout my career, and I'm excited about the possibility of bringing this mindset to ${companyName}.</p>
       
